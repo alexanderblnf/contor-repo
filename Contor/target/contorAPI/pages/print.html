@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="/contorAPI/css/materialize.css" media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="/contorAPI/css/styles.css" media="screen,projection"/>
+</head>
+<body>
+    <table id="tableId" class="highlight">
+        <thead>
+        <tr>
+            <th data-field="id">ID</th>
+            <th data-field="room">Room</th>
+            <th data-field="cold">Cold</th>
+            <th data-field="warm">Warm</th>
+            <th data-field="time">Time</th>
+        </tr>
+        </thead>
+
+        <tbody id="tableBody">
+        </tbody>
+    </table>
+
+</body>
+<script>
+    $(document).ready(function () {
+        var url = "http://localhost:8080/contorAPI/service/contor/printJSON";
+        $.ajax({
+            url: url,
+            jsonp: "callback",
+            dataType: "jsonp",
+        }).then(function (response) {
+            var table;
+
+            table = document.querySelector('#tableBody');
+            $('#tableBody').empty();
+
+            response.forEach(function (value) {
+                var td, tr;
+
+                tr = document.createElement('tr');
+
+                td = document.createElement('td');
+                td.textContent = value.id;
+
+                tr.appendChild(td);
+
+                td = document.createElement('td');
+                td.textContent = value.room;
+
+                tr.appendChild(td);
+
+                td = document.createElement('td');
+                td.textContent = value.cold;
+
+                tr.appendChild(td);
+
+                td = document.createElement('td');
+                td.textContent = value.warm;
+
+                tr.appendChild(td);
+
+                td = document.createElement('td');
+                td.textContent = value.time;
+
+                tr.appendChild(td);
+
+                table.appendChild(tr);
+            });
+
+            $('#tableId').addClass('highlight responsive-table');
+        });
+    });
+</script>
+</html>

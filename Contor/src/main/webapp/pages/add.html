@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="/contorAPI/css/materialize.css" media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="/contorAPI/css/styles.css" media="screen,projection"/>
+</head>
+<body>
+
+<div id="formDiv">
+
+    <div class="row">
+        <form class="col s12">
+            <div class="row">
+                <div class="input-field col s6">
+                    <select id="selectRoomForm" required>
+                        <option style="font-size:12px;" value="" disabled selected>Alege camera</option>
+                        <option value="1">Baie</option>
+                        <option value="2">WC</option>
+                    </select>
+                    <label>Choose Room</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s6">
+                    <i class="material-icons prefix">brightness_low</i>
+                    <input style="font-size:24px;" id="addColdForm" type="number" class="validate">
+                    <label style="font-size:12px;" for="addColdForm">Cold</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s6">
+                    <i class="material-icons prefix">wb_sunny</i>
+                    <input style="font-size:24px;" id="addWarmForm" type="number" class="validate">
+                    <label style="font-size:12px;" for="addWarmForm">Warm</label>
+                </div>
+            </div>
+        </form>
+        <button class="waves-effect waves-light btn btn-success" id="submitAdd">Add</button>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="/contorAPI/js/materialize.min.js"></script>
+<script type="text/javascript" src="/contorAPI/js/input.js"></script>
+<script>
+    $(function () {
+        $('select').material_select('destroy');
+        $('select').material_select();
+    });
+
+</script>
+</html>

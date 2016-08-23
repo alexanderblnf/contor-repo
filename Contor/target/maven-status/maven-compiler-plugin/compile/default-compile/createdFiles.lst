@@ -1,0 +1,9 @@
+restservices\RestApplication.class
+entities\Contor.class
+domUtils\ContorTuples.class
+restservices\ContorService.class
+domUtils\ContorOperations.class
+domUtils\JsonMessage.class
+domUtils\DatabaseProducer.class
+dateUtils\MonthUtils.class
+domUtils\ContorDB.class
