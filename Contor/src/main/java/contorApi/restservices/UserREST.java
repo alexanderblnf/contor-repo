@@ -50,4 +50,11 @@ public class UserREST {
         return Response.ok().entity(service.login(userJson)).build();
     }
 
+    @GET
+    @Path("/islogged")
+    @Produces(MediaType.APPLICATION_JSON + "; charset=UTF-8")
+    public Response verifyIfLoggedIn() {
+        return Response.ok().entity(service.verifyIfLoggedIn()).build();
+    }
+
 }

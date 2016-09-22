@@ -72,3 +72,10 @@ a {
 .home:hover {
     color: #191b6b;
 }
+
+.loginText{
+    font-family: 'Roboto Slab';
+    font-weight: 700;
+    color: slategray;
+    font-size: 1.5em;
+}

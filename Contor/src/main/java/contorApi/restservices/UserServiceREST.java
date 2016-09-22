@@ -71,6 +71,14 @@ public class UserServiceREST {
         }
     }
 
+    public boolean verifyIfLoggedIn() {
+        if(sessionStore == null || sessionStore.getUsername() == null) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
 
 
 }

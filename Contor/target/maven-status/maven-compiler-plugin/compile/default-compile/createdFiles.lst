@@ -13,7 +13,6 @@ contorApi\restservices\ContorServiceREST.class
 contorApi\security\SecurityInterceptor.class
 contorApi\domUtils\JsonMessage.class
 contorApi\restservices\ContorREST.class
-contorApi\session\SessionInfo.class
 contorApi\converter\UserConverter.class
 contorApi\domUtils\UserDAO.class
 contorApi\entities\Contor.class

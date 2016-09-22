@@ -81,6 +81,20 @@
 <script src="https://code.jquery.com/jquery-3.1.0.min.js"
         integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="
         crossorigin="anonymous"></script>
+<script>
+    var url = 'http://localhost:8080/contorAPI/service/user/islogged';
+
+    $.ajax({
+        type: "GET",
+        contentType: "application/json; charset=UTF-8",
+        url: url,
+        dataType: "json"
+    }).then(function (response) {
+        if(response == false) {
+            window.location.href = '/contorAPI/pages/login.html';
+        }
+    });
+</script>
 <script type="text/javascript" src="js/materialize.min.js"></script>
 <script src="js/input.js"></script>
 <script src="js/bootstrap.min.js"></script>

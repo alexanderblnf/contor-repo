@@ -110,10 +110,10 @@ $('#loginBtn').on("click", function () {
         data: data,
         dataType: "json"
     }).then(function (response) {
-        if(response.contains("true")) {
-            alert("Success");
-        } else if(response.contains("false")) {
-            alert("False");
+        if(response == true) {
+            window.location.href = "/contorAPI/";
+        } else if(response == false) {
+            Materialize.toast("Invalid e-mail or password", 3000, 'rounded');
         } else {
             alert("Problem");
         }
