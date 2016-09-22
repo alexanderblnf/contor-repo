@@ -1,11 +1,11 @@
 package contorApi.restservices;
 
+import contorApi.entities.Users;
+import contorApi.jsonObjects.UserJson;
+
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -19,11 +19,12 @@ public class UserREST {
     @Inject
     UserServiceREST service;
 
-    @GET
-    @Path("/add/{username}/{password}")
+    @POST
+    @Path("/add")
+    @Consumes(MediaType.APPLICATION_JSON + "; charset=UTF-8")
     @Produces(MediaType.APPLICATION_JSON + "; charset=UTF-8")
-    public Response addUser(@PathParam("username") String username, @PathParam("password") String password) {
-        return Response.ok().entity(service.addUser(username, password)).build();
+    public Response addUser(UserJson userJson) {
+        return Response.ok().entity(service.addUser(userJson)).build();
     }
 
     @GET
@@ -39,4 +40,14 @@ public class UserREST {
     public Response getUsers() {
         return Response.ok().entity(service.getUsers()).build();
     }
+
+
+    @POST
+    @Path("/login")
+    @Consumes(MediaType.APPLICATION_JSON + "; charset=UTF-8")
+    @Produces(MediaType.APPLICATION_JSON + "; charset=UTF-8")
+    public Response login(UserJson userJson) {
+        return Response.ok().entity(service.login(userJson)).build();
+    }
+
 }

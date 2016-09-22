@@ -21,7 +21,6 @@ $('#submitAdd').on("click", function () {
 });
 $('#submitRemove').on("click", function () {
     var id = $('#removeIdForm').val();
-    console.log("id=" + id);
     var url = 'http://localhost:8080/contorAPI/service/contor/remove/' + id;
 
     $.ajax({
@@ -68,4 +67,55 @@ $('.chartsBtn').on("click", function () {
 
 $('.home').on("click", function () {
     location.reload();
-})
+});
+
+$("#registerBtn").on("click", function () {
+    var email = $('#email-register').val();
+    var password = $('#password-register').val();
+    var user = new Object();
+    user.username = email;
+    user.password = password;
+
+    var data = JSON.stringify(user);
+
+    var url = 'http://localhost:8080/contorAPI/service/user/add';
+
+    $.ajax({
+        type: "POST",
+        contentType: "application/json; charset=UTF-8",
+        url: url,
+        data: data,
+        dataType: "json"
+    }).then(function (response) {
+        console.log(response);
+    });
+});
+
+$('#loginBtn').on("click", function () {
+    var email = $('#email-login').val();
+    var password = $('#password-login').val();
+
+    var user = new Object();
+    user.username = email;
+    user.password = password;
+
+    var data = JSON.stringify(user);
+
+    var url = 'http://localhost:8080/contorAPI/service/user/login';
+
+    $.ajax({
+        type: "POST",
+        contentType: "application/json; charset=UTF-8",
+        url: url,
+        data: data,
+        dataType: "json"
+    }).then(function (response) {
+        if(response.contains("true")) {
+            alert("Success");
+        } else if(response.contains("false")) {
+            alert("False");
+        } else {
+            alert("Problem");
+        }
+    });
+});

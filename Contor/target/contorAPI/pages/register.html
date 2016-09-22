@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Contor Register</title>
+    <link type="text/css" rel="stylesheet" href="/contorAPI/css/materialize.css" media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="/contorAPI/css/styles.css" media="screen,projection"/>
+
+</head>
+<body style="background-image: url('/contorAPI/img/login_bg.jpg');">
+<div id="register-page" class="row">
+    <div class="col s6 z-depth-5 card-panel" style="margin-left: 25%; margin-top: 10%;">
+        <form class="login-form">
+            <div class="row">
+                <div class="input-field col s12 center">
+                    <img src="http://w3lessons.info/logo.png" alt="" class="responsive-img valign profile-image-login">
+                    <p class="center login-form-text">Register</p>
+                </div>
+            </div>
+            <div class="row margin">
+                <div class="col s3"></div>
+                <div class="input-field col s6">
+                    <i class="mdi-social-person-outline prefix"></i>
+                    <input class="validate" id="email-register" type="email">
+                    <label for="email-register" data-error="wrong" data-success="right" class="center-align">Email</label>
+                </div>
+            </div>
+            <div class="row margin">
+                <div class="col s3"></div>
+                <div class="input-field col s6">
+                    <i class="mdi-action-lock-outline prefix"></i>
+                    <input id="password-register" type="password">
+                    <label for="password-register">Password</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <a href="#" class="btn waves-effect waves-light col s12" id="registerBtn">Register</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+<script src="https://code.jquery.com/jquery-3.1.0.min.js"
+        integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="
+        crossorigin="anonymous"></script>
+<script type="text/javascript" src="/contorAPI/js/materialize.min.js"></script>
+<script src="/contorAPI/js/input.js"></script>
+<script src="/contorAPI/js/bootstrap.min.js"></script>
+</html>
