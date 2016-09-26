@@ -1,9 +1,14 @@
 package contorApi.restservices;
 
+import contorApi.converter.UserConverter;
 import contorApi.domUtils.ContorDAO;
 import contorApi.domUtils.ContorOperations;
 import contorApi.domUtils.JsonMessage;
+import contorApi.domUtils.UserDAO;
 import contorApi.entities.Contor;
+import contorApi.entities.Users;
+import contorApi.jsonObjects.UserJson;
+import contorApi.security.SessionStore;
 import org.apache.commons.math3.stat.regression.SimpleRegression;
 
 import javax.ejb.Stateless;
@@ -23,6 +28,12 @@ public class ContorServiceREST {
     @Inject
     ContorDAO contorDAO;
 
+    @Inject
+    UserDAO userDAO;
+
+    @Inject
+    SessionStore sessionStore;
+
     public String print() {
         List<Contor> values = contorDAO.getContorValues();
         String out = new String();
@@ -35,7 +46,10 @@ public class ContorServiceREST {
     }
 
     public String add(String room, int cold, int warm) {
-        Contor c = new Contor(room, cold, warm);
+
+        Users aux = userDAO.getByUsername(sessionStore.getUsername());
+
+        Contor c = new Contor(room, cold, warm, aux);
         JsonMessage message;
 
         if (contorDAO.add(c) == 1) {
@@ -51,7 +65,7 @@ public class ContorServiceREST {
     }
 
     public String remove(int id) {
-        Contor c = new Contor("", 0, 0);
+        Contor c = new Contor("", 0, 0, new Users());
         c.setId(id);
         JsonMessage message;
 

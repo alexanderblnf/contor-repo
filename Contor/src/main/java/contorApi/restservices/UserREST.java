@@ -57,4 +57,11 @@ public class UserREST {
         return Response.ok().entity(service.verifyIfLoggedIn()).build();
     }
 
+    @GET
+    @Path("/logout")
+    @Produces(MediaType.APPLICATION_JSON + "; charset=UTF-8")
+    public Response logout() {
+        return Response.ok().entity(service.logout()).build();
+    }
+
 }

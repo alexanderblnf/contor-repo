@@ -2,6 +2,8 @@ package contorApi.domUtils;
 
 import contorApi.dateUtils.MonthUtils;
 import contorApi.entities.Contor;
+import contorApi.entities.Users;
+import contorApi.security.SessionStore;
 
 import javax.ejb.Stateless;
 import javax.enterprise.inject.Produces;
@@ -24,6 +26,12 @@ public class ContorDAO {
 
     @Inject
     MonthUtils m;
+
+    @Inject
+    UserDAO userDAO;
+
+    @Inject
+    SessionStore sessionStore;
 
     private boolean verifyValidAdd(Contor c) {
 
@@ -50,7 +58,7 @@ public class ContorDAO {
     }
 
     public List<ContorTuples> getMonthMaximum(Contor month) {
-        List<Contor> values = getMonthlyUsage(month);
+        List<Contor> values = getMonthlyUsageForUser(month);
 
         return m.getMonthMaximumUtil(values);
     }
@@ -86,6 +94,12 @@ public class ContorDAO {
         return entityManager.createNamedQuery("Contor.findAllOrderByTime", Contor.class).getResultList();
     }
 
+    public List<Contor> getContorValuesforUser() {
+        Users user = userDAO.getByUsername(sessionStore.getUsername());
+        return entityManager.createNamedQuery("Contor.findAllforUser")
+                .setParameter("user", user).getResultList();
+    }
+
     public List<Contor> getMonthlyUsage(Contor month) {
         Calendar cal = Calendar.getInstance();
         cal.setTime(month.getTime());
@@ -95,10 +109,31 @@ public class ContorDAO {
                 .setParameter("monthDate", cal.get(Calendar.MONTH) + 1).getResultList();
     }
 
+    public List<Contor> getMonthlyUsageForUser(Contor month) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(month.getTime());
+
+        Users user = userDAO.getByUsername(sessionStore.getUsername());
+
+        return entityManager.createNamedQuery("Contor.getUsageForUser")
+                .setParameter("yearDate", cal.get(Calendar.YEAR))
+                .setParameter("monthDate", cal.get(Calendar.MONTH) + 1)
+                .setParameter("user", user).getResultList();
+    }
+
     public List<Contor> getValuesBetweenDates(Contor start, Contor end) {
         return entityManager.createNamedQuery("Contor.getValuesBetweenDates")
                 .setParameter("start", start.getTime(), TemporalType.TIMESTAMP)
                 .setParameter("end", end.getTime(), TemporalType.TIMESTAMP).getResultList();
+    }
+
+    public List<Contor> getValuesBetweenDatesForUser(Contor start, Contor end) {
+        Users user = userDAO.getByUsername(sessionStore.getUsername());
+
+        return entityManager.createNamedQuery("Contor.getValuesBetweenDatesForUser")
+                .setParameter("start", start.getTime(), TemporalType.TIMESTAMP)
+                .setParameter("end", end.getTime(), TemporalType.TIMESTAMP)
+                .setParameter("user", user).getResultList();
     }
 
 

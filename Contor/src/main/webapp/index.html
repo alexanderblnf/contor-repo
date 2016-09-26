@@ -18,15 +18,25 @@
     <li>
         <div class="userView">
             <img class="background" src="img/blue-bg.png">
-            <a href="#!users"><img class="circle" src="img/circle.png"></a>
-            <a href="#!name"><span class="white-text name">Alexandru Balan</span></a>
-            <a href="#!email"><span class="white-text email">alexandru.balan0505@gmail.com</span></a>
+            <img class="circle" src="/contorAPI/img/contor_logo.png">
+            <ul class="collapsible collapsible-accordion" style="margin-bottom: 9%;">
+                <li>
+                    <a class="collapsible-header dropdownStyle">Alexandru Balan<i class="material-icons">arrow_drop_down</i></a>
+                    <div class="collapsible-body" style="background-color : transparent;">
+                        <ul>
+                            <li><a class="dropdownStyle" href="#!"><i class="material-icons dropdownStyle">face</i>My Profile</a></li>
+                            <li><a class="dropdownStyle logoutBtn"><i class="material-icons dropdownStyle logoutBtn">power_settings_new</i>Logout</a></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
         </div>
     </li>
     <li><a class="addBtn"><i class="material-icons addBtn">add</i>Add Entry</a></li>
     <li><a class="removeBtn"><i class="material-icons removeBtn">delete</i>Delete Entry</a></li>
     <li><a class="printBtn"><i class="material-icons printBtn">print</i>Print Database</a></li>
     <li><a class="chartsBtn"><i class="material-icons chartsBtn">show_chart</i>Show statistics</a></li>
+
 </ul>
 <div class="header z-depth-1" style="background-image: url('img/blue-bg.png'); display: flex; align-items: center;">
 
@@ -103,7 +113,22 @@
         $('.button-collapse').sideNav({
             closeOnClick: true
         });
+        $('.collapsible').collapsible();
     });
 
+    $(".logoutBtn").on("click", function () {
+        var url = 'http://localhost:8080/contorAPI/service/user/logout';
+
+        $.ajax({
+            type: "GET",
+            contentType: "application/json; charset=UTF-8",
+            url: url,
+            dataType: "json"
+        }).then(function (response) {
+            if(response == true) {
+                window.location.href = '/contorAPI/pages/login.html';
+            }
+        });
+    });
 </script>
 </html>

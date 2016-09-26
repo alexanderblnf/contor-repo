@@ -2,6 +2,7 @@ package contorApi.dateUtils;
 
 import contorApi.domUtils.ContorTuples;
 import contorApi.entities.Contor;
+import contorApi.entities.Users;
 
 import javax.ejb.Stateless;
 import java.util.*;
@@ -43,8 +44,8 @@ public class MonthUtils {
         }
 
         List<ContorTuples> tuples = new ArrayList<ContorTuples>();
-        Contor maxBath = new Contor("baie", 0, 0);
-        Contor maxWc = new Contor("wc", 0, 0);
+        Contor maxBath = new Contor("baie", 0, 0, new Users());
+        Contor maxWc = new Contor("wc", 0, 0, new Users());
 
         for(Contor c : values) {
             if(c.getRoom().contains("baie")) {

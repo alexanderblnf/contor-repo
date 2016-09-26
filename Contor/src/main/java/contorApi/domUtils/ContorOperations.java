@@ -65,15 +65,15 @@ public class ContorOperations {
 
     @Produces
     public String printJSON() {
-        List<Contor> values = contorDAO.getContorValues();
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        List<Contor> values = contorDAO.getContorValuesforUser();
+        Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().setPrettyPrinting().create();
 
         return gson.toJson(values);
     }
 
     @Produces
     public String printDateJSON(Contor start, Contor end) {
-        List<Contor> values = contorDAO.getValuesBetweenDates(start, end);
+        List<Contor> values = contorDAO.getValuesBetweenDatesForUser(start, end);
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
         return gson.toJson(values);

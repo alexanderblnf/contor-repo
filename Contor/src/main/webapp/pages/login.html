@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Contr Login</title>
+    <title>Contor Login</title>
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link type="text/css" rel="stylesheet" href="/contorAPI/css/materialize.css" media="screen,projection"/>
     <link type="text/css" rel="stylesheet" href="/contorAPI/css/styles.css" media="screen,projection"/>
@@ -13,8 +13,6 @@
 <div id="login-page" class="row">
     <div class="col s6 z-depth-5 card-panel" style="margin-left: 25%; margin-top: 10%;">
         <form class="login-form">
-            <input style="display:none" type="text">
-            <input style="display:none" type="password">
             <div class="row">
                 <div class="input-field col s12 center">
                     <img src="/contorAPI/img/contor_logo.png" alt="" class="responsive-img valign profile-image-login" style="width:30%; height:50%;">
@@ -74,4 +72,10 @@
 <script type="text/javascript" src="/contorAPI/js/materialize.min.js"></script>
 <script src="/contorAPI/js/input.js"></script>
 <script src="/contorAPI/js/bootstrap.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#email-login').val("");
+        $('#password-login').val("");
+    });
+</script>
 </html>

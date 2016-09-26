@@ -1,5 +1,7 @@
 package contorApi.entities;
 
+import com.google.gson.annotations.Expose;
+
 import javax.persistence.*;
 import java.util.Calendar;
 import java.util.Date;
@@ -17,29 +19,44 @@ import java.util.Date;
                 query = "SELECT c from Contor c order by c.time"),
         @NamedQuery(name = "Contor.getUsage",
                 query = "SELECT c from Contor c WHERE YEAR(c.time) = :yearDate and MONTH(c.time) = :monthDate"),
+        @NamedQuery(name = "Contor.getUsageForUser",
+                query = "SELECT c from Contor c WHERE YEAR(c.time) = :yearDate and MONTH(c.time) = :monthDate and c.user = :user"),
         @NamedQuery(name= "Contor.getValuesBetweenDates",
-                query = "SELECT c from Contor c WHERE c.time BETWEEN :start AND :end")
+                query = "SELECT c from Contor c WHERE c.time BETWEEN :start AND :end"),
+        @NamedQuery(name = "Contor.getValuesBetweenDatesForUser",
+                query = "SELECT c from Contor c WHERE c.time BETWEEN :start AND :end AND c.user = :user"),
+        @NamedQuery(name = "Contor.findAllforUser",
+                query = "SELECT c from Contor c WHERE c.user = :user")
 })
 public class Contor {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Expose
     private int id;
 
+    @Expose
     private String room;
 
+    @Expose
     private int cold;
 
+    @Expose
     private int warm;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "time", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
+    @Expose
     private Date time;
 
-    public Contor(String room, int cold, int warm) {
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Users user;
+
+    public Contor(String room, int cold, int warm, Users user) {
         this.room = room;
         this.cold = cold;
         this.warm = warm;
+        this.user = user;
     }
 
     public Contor() {
@@ -83,6 +100,14 @@ public class Contor {
 
     public void setTime(Date time) {
         this.time = time;
+    }
+
+    public Users getUser() {
+        return user;
+    }
+
+    public void setUser(Users user) {
+        this.user = user;
     }
 
     public String toString() {
