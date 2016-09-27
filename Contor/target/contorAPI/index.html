@@ -9,8 +9,17 @@
     <link type="text/css" rel="stylesheet" href="css/materialize.css" media="screen,projection"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link type="text/css" rel="stylesheet" href="css/styles.css"/>
+    <link type="text/css" rel="stylesheet" href="css/loading-screen.css"/>
 </head>
 <body>
+<div align="center" class="cssload-fond" id="loadScreen" style="display: block;">
+    <div class="cssload-container-general" id="loadContainer" style="display: block;">
+        <div class="cssload-internal"><div class="cssload-ballcolor cssload-ball_1"> </div></div>
+        <div class="cssload-internal"><div class="cssload-ballcolor cssload-ball_2"> </div></div>
+        <div class="cssload-internal"><div class="cssload-ballcolor cssload-ball_3"> </div></div>
+        <div class="cssload-internal"><div class="cssload-ballcolor cssload-ball_4"> </div></div>
+    </div>
+</div>
 <div class="centerDiv" style="display:none;">
 
 </div>
@@ -21,7 +30,7 @@
             <img class="circle" src="/contorAPI/img/contor_logo.png">
             <ul class="collapsible collapsible-accordion" style="margin-bottom: 9%;">
                 <li>
-                    <a class="collapsible-header dropdownStyle">Alexandru Balan<i class="material-icons">arrow_drop_down</i></a>
+                    <a class="collapsible-header dropdownStyle" id="usernameLink"><i class="material-icons">arrow_drop_down</i></a>
                     <div class="collapsible-body" style="background-color : transparent;">
                         <ul>
                             <li><a class="dropdownStyle" href="#!"><i class="material-icons dropdownStyle">face</i>My Profile</a></li>
@@ -88,9 +97,31 @@
     </div>
 </footer>
 </body>
+<!--<script>
+    window.onload = function() {
+        setTimeout(function(){
+            document.getElementById('loadScreen').style.display = 'none';
+        }, 500);
+    };
+</script> -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js"
         integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="
         crossorigin="anonymous"></script>
+
+<script>
+    $(window).on('load', function () {
+        setTimeout(function() {
+            $('#loadContainer').css('display', 'none');
+            $('#loadScreen').css('display', 'none');
+        }, 500);
+
+    });
+</script>
+
+<script type="text/javascript" src="js/materialize.min.js"></script>
+<script src="js/input.js"></script>
+<script src="js/bootstrap.min.js"></script>
+
 <script>
     var url = 'http://localhost:8080/contorAPI/service/user/islogged';
 
@@ -98,16 +129,18 @@
         type: "GET",
         contentType: "application/json; charset=UTF-8",
         url: url,
-        dataType: "json"
-    }).then(function (response) {
-        if(response == false) {
+        dataType: "json",
+        error: function() {
             window.location.href = '/contorAPI/pages/login.html';
+        },
+        success: function (response) {
+            var fullName = response.firstName + " " + response.lastName;
+            var text = fullName + $('#usernameLink').text();
+            $('#usernameLink').text(text);
         }
     });
 </script>
-<script type="text/javascript" src="js/materialize.min.js"></script>
-<script src="js/input.js"></script>
-<script src="js/bootstrap.min.js"></script>
+
 <script>
     $(document).ready(function () {
         $('.button-collapse').sideNav({

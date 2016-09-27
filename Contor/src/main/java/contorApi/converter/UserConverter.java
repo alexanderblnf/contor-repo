@@ -4,6 +4,9 @@ import contorApi.entities.Users;
 import contorApi.jsonObjects.UserJson;
 
 import javax.ejb.Stateless;
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 /**
  * Created by C311939 on 21.09.2016.
@@ -12,8 +15,30 @@ import javax.ejb.Stateless;
 public class UserConverter {
     public Users fromJson(UserJson userJson) {
         Users user = new Users();
+        MessageDigest md = null;
+        try {
+            md = MessageDigest.getInstance("MD5");
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+
+        byte[] encryptedPassword = null;
+        try {
+            encryptedPassword = md.digest(userJson.getPassword().getBytes("UTF-8"));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
         user.setUsername(userJson.getUsername());
-        user.setPassword(userJson.getPassword());
+        user.setPassword(new String(encryptedPassword));
+
+        if(userJson.getLastName() != null) {
+            user.setLastName(userJson.getLastName());
+        }
+
+        if(userJson.getFirstName() != null) {
+            user.setFirstName(userJson.getFirstName());
+        }
 
         return user;
     }
@@ -22,6 +47,14 @@ public class UserConverter {
         UserJson userJson = new UserJson();
         userJson.setUsername(user.getUsername());
         userJson.setPassword(user.getPassword());
+
+        if(user.getFirstName() != null) {
+            userJson.setFirstName(user.getFirstName());
+        }
+
+        if(user.getLastName() != null) {
+            userJson.setLastName(user.getLastName());
+        }
 
         return userJson;
     }

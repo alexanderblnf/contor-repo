@@ -36,15 +36,20 @@ public class UserServiceREST {
         return gson.toJson(userDAO.getAllUsers());
     }
 
-    public UserJson addUser(UserJson userJson) {
+    public boolean addUser(UserJson userJson) {
+
+        if(userJson == null || userJson.getFirstName() == null || userJson.getLastName() == null || userJson.getPassword() == null || userJson.getUsername() == null) {
+            return false;
+        }
+
         Users user = userConverter.fromJson(userJson);
         Users aux = userDAO.getByUsername(user.getUsername());
 
         if(aux == null) {
             userDAO.add(user);
-            return userJson;
+            return true;
         } else {
-            return null;
+            return false;
         }
     }
 
@@ -80,11 +85,12 @@ public class UserServiceREST {
         return false;
     }
 
-    public boolean verifyIfLoggedIn() {
+    public UserJson verifyIfLoggedIn() {
         if(sessionStore == null || sessionStore.getUsername() == null) {
-            return false;
+            return null;
         } else {
-            return true;
+            Users aux = userDAO.getByUsername(sessionStore.getUsername());
+            return userConverter.toJson(aux);
         }
     }
 

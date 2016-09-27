@@ -64,24 +64,6 @@ public class ContorOperations {
     }
 
     @Produces
-    public String printJSON() {
-        List<Contor> values = contorDAO.getContorValuesforUser();
-        Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().setPrettyPrinting().create();
-
-        return gson.toJson(values);
-    }
-
-    @Produces
-    public String printDateJSON(Contor start, Contor end) {
-        List<Contor> values = contorDAO.getValuesBetweenDatesForUser(start, end);
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-
-        return gson.toJson(values);
-    }
-
-
-
-    @Produces
     public List<ContorTuples> getUsagePerMonth(Contor currentMonth, Contor previousMonth) {
         List<ContorTuples> t1 = contorDAO.getMonthMaximum(currentMonth);
         List<ContorTuples> t2 = contorDAO.getMonthMaximum(previousMonth);

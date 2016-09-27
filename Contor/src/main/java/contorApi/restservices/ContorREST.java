@@ -72,7 +72,7 @@ public class ContorREST {
 
     @GET
     @Path("getEstimate")
-    @Produces(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.APPLICATION_JSON)
     public String getEstimate(){
         return service.getEstimate();
     }

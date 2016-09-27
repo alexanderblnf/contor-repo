@@ -70,11 +70,16 @@ $('.home').on("click", function () {
 });
 
 $("#registerBtn").on("click", function () {
+    var firstName = $('#firstName-register').val();
+    var lastName = $('#lastName-register').val();
     var email = $('#email-register').val();
     var password = $('#password-register').val();
     var user = new Object();
+
     user.username = email;
     user.password = password;
+    user.firstName = firstName;
+    user.lastName = lastName;
 
     var data = JSON.stringify(user);
 
@@ -87,7 +92,15 @@ $("#registerBtn").on("click", function () {
         data: data,
         dataType: "json"
     }).then(function (response) {
-        console.log(response);
+        if(response == true) {
+            Materialize.toast("Registered successfully", 3000, 'rounded');
+            setTimeout(function () {
+                window.location.href = "/contorAPI/pages/login.html";
+            }, 2000);
+
+        } else {
+            Materialize.toast("This e-mail is already registered", 3000, 'rounded');
+        }
     });
 });
 

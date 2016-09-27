@@ -98,6 +98,10 @@ input:-webkit-autofill {
     color: ghostwhite !important;
 }
 
+.dropdownStyle:hover {
+    color: #191b6b !important;
+}
+
 .circle{
     margin-left: auto;
     margin-right: auto;

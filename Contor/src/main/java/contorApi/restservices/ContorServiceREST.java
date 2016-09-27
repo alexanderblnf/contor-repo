@@ -1,10 +1,9 @@
 package contorApi.restservices;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import contorApi.converter.UserConverter;
-import contorApi.domUtils.ContorDAO;
-import contorApi.domUtils.ContorOperations;
-import contorApi.domUtils.JsonMessage;
-import contorApi.domUtils.UserDAO;
+import contorApi.domUtils.*;
 import contorApi.entities.Contor;
 import contorApi.entities.Users;
 import contorApi.jsonObjects.UserJson;
@@ -79,7 +78,17 @@ public class ContorServiceREST {
     }
 
     public String printJSON() {
-        return op.printJSON();
+        List<Contor> values = contorDAO.getContorValuesforUser();
+        Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().setPrettyPrinting().create();
+
+        return gson.toJson(values);
+    }
+
+    public String printDateJSON(Contor start, Contor end) {
+        List<Contor> values = contorDAO.getValuesBetweenDatesForUser(start, end);
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+
+        return gson.toJson(values);
     }
 
     public String getTimestampValues(int startDay, int startMonth, int startYear, int endDay, int endMonth, int endYear) {
@@ -92,7 +101,7 @@ public class ContorServiceREST {
         Contor c2 = new Contor();
         c2.setTime(end);
 
-        return op.printDateJSON(c1, c2);
+        return printDateJSON(c1, c2);
     }
 
     public String getMonthlyUsage(int month, int year) {
@@ -128,12 +137,15 @@ public class ContorServiceREST {
         List<SimpleRegression> regressions = op.getPrediction(c);
 
         List<Double> predictions = new ArrayList<Double>();
-        String out = new String();
+        List<ContorTuples> out = new ArrayList<ContorTuples>();
         for(SimpleRegression regress : regressions) {
-            out += regress.predict(mth) + " ";
             predictions.add(regress.predict(mth));
         }
+        out.add(new ContorTuples("baie", (int)Math.round(predictions.get(0)), (int)Math.round(predictions.get(1))));
+        out.add(new ContorTuples("wc", (int)Math.round(predictions.get(2)), (int)Math.round(predictions.get(3))));
 
-        return out;
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+
+        return gson.toJson(out);
     }
 }
