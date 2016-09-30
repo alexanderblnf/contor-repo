@@ -3,6 +3,7 @@ package contorApi.restservices;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import contorApi.converter.UserConverter;
+import contorApi.dateUtils.MonthUtils;
 import contorApi.domUtils.*;
 import contorApi.entities.Contor;
 import contorApi.entities.Users;
@@ -32,6 +33,9 @@ public class ContorServiceREST {
 
     @Inject
     SessionStore sessionStore;
+
+    @Inject
+    MonthUtils monthUtils;
 
     public String print() {
         List<Contor> values = contorDAO.getContorValues();
@@ -130,19 +134,24 @@ public class ContorServiceREST {
         Contor c = new Contor();
         c.setTime(date);
 
+        Date prev = monthUtils.getPreviousMonth(date);
+        Contor prevC = new Contor();
+        prevC.setTime(prev);
+
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);
         int mth = cal.get(Calendar.MONTH) + 1;
 
         List<SimpleRegression> regressions = op.getPrediction(c);
+        List<ContorTuples> prevMax = contorDAO.getMonthMaximum(prevC);
 
         List<Double> predictions = new ArrayList<Double>();
         List<ContorTuples> out = new ArrayList<ContorTuples>();
         for(SimpleRegression regress : regressions) {
             predictions.add(regress.predict(mth));
         }
-        out.add(new ContorTuples("baie", (int)Math.round(predictions.get(0)), (int)Math.round(predictions.get(1))));
-        out.add(new ContorTuples("wc", (int)Math.round(predictions.get(2)), (int)Math.round(predictions.get(3))));
+        out.add(new ContorTuples("baie", (int)Math.round(predictions.get(0) - prevMax.get(0).getCold()), (int)Math.round(predictions.get(1)) - prevMax.get(0).getWarm()));
+        out.add(new ContorTuples("wc", (int)Math.round(predictions.get(2) - prevMax.get(1).getCold()), (int)Math.round(predictions.get(3)) - prevMax.get(1).getWarm()));
 
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
 

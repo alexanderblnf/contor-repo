@@ -9,7 +9,24 @@
     <link type="text/css" rel="stylesheet" href="/contorAPI/css/styles.css" media="screen,projection"/>
 </head>
 <body>
+<a class="waves-effect waves-light btn modal-trigger" href="#estimateValue" id="estimateBtn">Get Estimation for next month</a>
 
+<div id="estimateValue" class="modal">
+    <div class="modal-content">
+        <h4>Estimare</h4>
+        <table id="tableId" class="highlight">
+            <thead>
+            <tr>
+                <th data-field="room">Room</th>
+                <th data-field="cold">Cold</th>
+                <th data-field="warm">Warm</th>
+            </tr>
+            </thead>
+            <tbody id="tableBody">
+            </tbody>
+        </table>
+    </div>
+</div>
 <div id="Estimation">
 
 </div>
@@ -19,6 +36,11 @@
 </body>
 <script type="text/javascript" src="/contorAPI/js/Chart.min.js"></script>
 <script type="text/javascript" src="/contorAPI/js/input.js"></script>
+<script>
+    $(document).ready(function(){
+        $('.modal-trigger').leanModal();
+    });
+</script>
 <script>
     var bathColdYearData = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
     var bathWarmYearData = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
@@ -107,5 +129,43 @@
         });
 
     });
+
+    $(document).on('click', '#estimateBtn', function () {
+        var url = 'http://localhost:8080/contorAPI/service/contor/getEstimate';
+
+        $.ajax({
+            type: "GET",
+            url: url,
+        }).then(function (response) {
+
+            table = document.querySelector('#tableBody');
+            $('#tableBody').empty();
+
+            response.forEach(function (value) {
+               var td, tr;
+
+                tr = document.createElement('tr');
+
+                td = document.createElement('td');
+                td.textContent = value.room;
+
+                tr.appendChild(td);
+
+                td = document.createElement('td');
+                td.textContent = value.cold;
+
+                tr.appendChild(td);
+
+                td = document.createElement('td');
+                td.textContent = value.warm;
+
+                tr.appendChild(td);
+
+                table.appendChild(tr);
+
+            });
+        });
+    })
 </script>
+
 </html>
