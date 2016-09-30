@@ -83,7 +83,7 @@ public class ContorDAO {
         Contor aux = entityManager.find(Contor.class, c.getId());
 
         if(aux != null) {
-            entityManager.remove(c);
+            entityManager.remove(aux);
             return true;
         } else {
             return false;

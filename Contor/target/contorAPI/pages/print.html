@@ -16,7 +16,8 @@
             <th data-field="room">Room</th>
             <th data-field="cold">Cold</th>
             <th data-field="warm">Warm</th>
-            <th data-field="time">Time</th>
+            <th data-field="time">Times</th>
+            <th data-field="delete">Delete</th>
         </tr>
         </thead>
 
@@ -26,7 +27,7 @@
 
 </body>
 <script>
-    $(document).ready(function () {
+    function printDB() {
         var url = "http://localhost:8080/contorAPI/service/contor/printJSON";
         $.ajax({
             url: url,
@@ -38,8 +39,11 @@
             table = document.querySelector('#tableBody');
             $('#tableBody').empty();
 
+            var i = 0;
+
             response.forEach(function (value) {
                 var td, tr;
+                i++;
 
                 tr = document.createElement('tr');
 
@@ -68,10 +72,37 @@
 
                 tr.appendChild(td);
 
+                td = document.createElement('td');
+
+                var iconId = "deleteId" + value.id;
+
+                td.innerHTML = '<i class="material-icons prefix deleteEntry" id="' + iconId + '">delete</i>';
+
+                tr.appendChild(td);
+
                 table.appendChild(tr);
             });
 
             $('#tableId').addClass('highlight responsive-table');
+        });
+    }
+</script>
+<script>
+    $(document).ready(function () {
+        printDB();
+    });
+
+    $(document).on('click', '.deleteEntry', function () {
+        var id = parseInt(this.id.substring(8));
+        console.log(id);
+        var url = 'http://localhost:8080/contorAPI/service/contor/remove/' + id;
+
+        $.ajax({
+            type: "GET",
+            url: url,
+        }).then(function (response) {
+            Materialize.toast(response, 2000, 'rounded');
+            printDB();
         });
     });
 </script>

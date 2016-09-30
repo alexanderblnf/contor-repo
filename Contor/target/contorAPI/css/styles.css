@@ -108,3 +108,12 @@ input:-webkit-autofill {
     height: 50% !important;
     width: 50% !important;
 }
+
+.deleteEntry {
+    cursor: pointer;
+    color: deepskyblue;
+}
+
+.deleteEntry:hover {
+   color: red;
+}

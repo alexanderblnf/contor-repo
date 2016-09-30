@@ -2,9 +2,9 @@ package contorApi.converter;
 
 import contorApi.entities.Users;
 import contorApi.jsonObjects.UserJson;
-
 import javax.ejb.Stateless;
 import java.io.UnsupportedEncodingException;
+import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -29,8 +29,11 @@ public class UserConverter {
             e.printStackTrace();
         }
 
+        BigInteger bigInteger = new BigInteger(1, encryptedPassword);
+        String password = bigInteger.toString(16);
+
         user.setUsername(userJson.getUsername());
-        user.setPassword(new String(encryptedPassword));
+        user.setPassword(password);
 
         if(userJson.getLastName() != null) {
             user.setLastName(userJson.getLastName());

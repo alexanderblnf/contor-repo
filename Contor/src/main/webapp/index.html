@@ -30,7 +30,7 @@
             <img class="circle" src="/contorAPI/img/contor_logo.png">
             <ul class="collapsible collapsible-accordion" style="margin-bottom: 9%;">
                 <li>
-                    <a class="collapsible-header dropdownStyle" id="usernameLink"><i class="material-icons">arrow_drop_down</i></a>
+                    <a class="collapsible-header dropdownStyle" id="usernameLink"></a>
                     <div class="collapsible-body" style="background-color : transparent;">
                         <ul>
                             <li><a class="dropdownStyle" href="#!"><i class="material-icons dropdownStyle">face</i>My Profile</a></li>
@@ -42,8 +42,8 @@
         </div>
     </li>
     <li><a class="addBtn"><i class="material-icons addBtn">add</i>Add Entry</a></li>
-    <li><a class="removeBtn"><i class="material-icons removeBtn">delete</i>Delete Entry</a></li>
-    <li><a class="printBtn"><i class="material-icons printBtn">print</i>Print Database</a></li>
+    <!--<li><a class="removeBtn"><i class="material-icons removeBtn">delete</i>Delete Entry</a></li>-->
+    <li><a class="printBtn"><i class="material-icons printBtn">print</i>My Entries</a></li>
     <li><a class="chartsBtn"><i class="material-icons chartsBtn">show_chart</i>Show statistics</a></li>
 
 </ul>
@@ -97,18 +97,15 @@
     </div>
 </footer>
 </body>
-<!--<script>
-    window.onload = function() {
-        setTimeout(function(){
-            document.getElementById('loadScreen').style.display = 'none';
-        }, 500);
-    };
-</script> -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js"
         integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="
         crossorigin="anonymous"></script>
 
 <script>
+    $(document).ready(function () {
+        $('#loadContainer').css('display', 'block');
+        $('#loadScreen').css('display', 'block');
+    });
     $(window).on('load', function () {
         setTimeout(function() {
             $('#loadContainer').css('display', 'none');
@@ -134,9 +131,8 @@
             window.location.href = '/contorAPI/pages/login.html';
         },
         success: function (response) {
-            var fullName = response.firstName + " " + response.lastName;
-            var text = fullName + $('#usernameLink').text();
-            $('#usernameLink').text(text);
+            var fullName = response.firstName + ' ' + response.lastName + '<i class="material-icons">arrow_drop_down</i>';
+            $('#usernameLink').append(fullName);
         }
     });
 </script>

@@ -12,7 +12,7 @@
 <body style="background-image: url('/contorAPI/img/login_bg.jpg');">
 <div id="login-page" class="row">
     <div class="col s6 z-depth-5 card-panel" style="margin-left: 25%; margin-top: 10%;">
-        <form class="login-form">
+        <form class="login-form" id="loginForm">
             <div class="row">
                 <div class="input-field col s12 center">
                     <img src="/contorAPI/img/contor_logo.png" alt="" class="responsive-img valign profile-image-login" style="width:30%; height:50%;">
@@ -25,7 +25,7 @@
                     <i class="material-icons prefix">face</i>
                     <div class="col s2"></div>
                     <i class="mdi-social-person-outline prefix"></i>
-                    <input class="validate col s10" id="email-login" type="email">
+                    <input class="form-input validate col s10" id="email-login" type="email">
                     <label for="email-login" data-error="invalid e-mail format" data-success="correct">Email</label>
                 </div>
             </div>
@@ -35,7 +35,7 @@
                     <i class="material-icons prefix">lock</i>
                     <div class="col s2"></div>
                     <i class="mdi-action-lock-outline prefix"></i>
-                    <input id="password-login" type="password" class="col s10">
+                    <input class="form-input" id="password-login" type="password" class="col s10">
                     <label for="password-login">Password</label>
                 </div>
             </div>

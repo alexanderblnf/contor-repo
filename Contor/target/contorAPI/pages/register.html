@@ -23,21 +23,11 @@
             <div class="row margin">
                 <div class="col s3"></div>
                 <div class="input-field col s6">
-                    <i class="material-icons prefix">lock</i>
+                    <i class="material-icons prefix">face</i>
                     <div class="col s2"></div>
                     <i class="mdi-action-lock-outline prefix"></i>
-                    <input id="firstName-register" type="text" class="col s10" required>
+                    <input id="firstName-register" type="text" class="col s10 input-register" required>
                     <label for="firstName-register">First Name</label>
-                </div>
-            </div>
-            <div class="row margin">
-                <div class="col s3"></div>
-                <div class="input-field col s6">
-                    <i class="material-icons prefix">lock</i>
-                    <div class="col s2"></div>
-                    <i class="mdi-action-lock-outline prefix"></i>
-                    <input id="lastName-register" type="text" class="col s10" required>
-                    <label for="lastName-register">Last Name</label>
                 </div>
             </div>
             <div class="row margin">
@@ -45,8 +35,18 @@
                 <div class="input-field col s6">
                     <i class="material-icons prefix">face</i>
                     <div class="col s2"></div>
+                    <i class="mdi-action-lock-outline prefix"></i>
+                    <input id="lastName-register" type="text" class="col s10 input-register" required>
+                    <label for="lastName-register">Last Name</label>
+                </div>
+            </div>
+            <div class="row margin">
+                <div class="col s3"></div>
+                <div class="input-field col s6">
+                    <i class="material-icons prefix">account_circle</i>
+                    <div class="col s2"></div>
                     <i class="mdi-social-person-outline prefix"></i>
-                    <input class="validate col s10" id="email-register" type="email" required>
+                    <input class="validate col s10 input-register" id="email-register" type="email" required>
                     <label for="email-register" data-error="wrong" data-success="right">Email</label>
                 </div>
             </div>
@@ -56,7 +56,7 @@
                     <i class="material-icons prefix">lock</i>
                     <div class="col s2"></div>
                     <i class="mdi-action-lock-outline prefix"></i>
-                    <input id="password-register" type="password" class="col s10" required>
+                    <input id="password-register" type="password" class="col s10 input-register" required>
                     <label for="password-register">Password</label>
                 </div>
             </div>
@@ -71,9 +71,16 @@
     </div>
 </div>
 </body>
+
 <script src="https://code.jquery.com/jquery-3.1.0.min.js"
         integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="
         crossorigin="anonymous"></script>
+<script>
+    $(document).ready(function () {
+        $('#email-register').val("");
+        $('#password-register').val("");
+    });
+</script>
 <script type="text/javascript" src="/contorAPI/js/materialize.min.js"></script>
 <script src="/contorAPI/js/input.js"></script>
 <script src="/contorAPI/js/bootstrap.min.js"></script>

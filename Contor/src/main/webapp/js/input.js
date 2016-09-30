@@ -69,7 +69,7 @@ $('.home').on("click", function () {
     location.reload();
 });
 
-$("#registerBtn").on("click", function () {
+function registerForm() {
     var firstName = $('#firstName-register').val();
     var lastName = $('#lastName-register').val();
     var email = $('#email-register').val();
@@ -102,9 +102,9 @@ $("#registerBtn").on("click", function () {
             Materialize.toast("This e-mail is already registered", 3000, 'rounded');
         }
     });
-});
+}
 
-$('#loginBtn').on("click", function () {
+function loginForm() {
     var email = $('#email-login').val();
     var password = $('#password-login').val();
 
@@ -131,4 +131,23 @@ $('#loginBtn').on("click", function () {
             alert("Problem");
         }
     });
+}
+$('#loginBtn').on("click", function () {
+    loginForm();
+});
+
+$('.form-input').keypress(function (e) {
+    if(e.which == 13) {
+        loginForm();
+    }
+});
+
+$("#registerBtn").on("click", function () {
+    registerForm();
+});
+
+$('.input-register').keypress(function (e) {
+   if(e.which == 13) {
+       registerForm();
+   }
 });
