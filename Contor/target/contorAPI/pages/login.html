@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Contor Login</title>
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="/contorAPI/css/materialize.css" media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="/contorAPI/css/styles.css" media="screen,projection"/>
+    <link rel="stylesheet" type="text/css"
+          href="https://fonts.googleapis.com/css?family=Roboto+Slab">
+</head>
+<body style="background-image: url('/contorAPI/img/login_bg.jpg');">
+<div id="login-page" class="row">
+    <div class="col s6 z-depth-5 card-panel" style="margin-left: 25%; margin-top: 10%;">
+        <form class="login-form" id="loginForm">
+            <div class="row">
+                <div class="input-field col s12 center">
+                    <img src="/contorAPI/img/contor_logo.png" alt="" class="responsive-img valign profile-image-login" style="width:30%; height:50%;">
+                    <p class="loginText center login-form-text">Welcome!</p>
+                </div>
+            </div>
+            <div class="row margin">
+                <div class="col s3"></div>
+                <div class="input-field col s6">
+                    <i class="material-icons prefix">face</i>
+                    <div class="col s2"></div>
+                    <i class="mdi-social-person-outline prefix"></i>
+                    <input class="form-input validate col s10" id="email-login" type="email">
+                    <label for="email-login" data-error="invalid e-mail format" data-success="correct">Email</label>
+                </div>
+            </div>
+            <div class="row margin">
+                <div class="col s3"></div>
+                <div class="input-field col s6">
+                    <i class="material-icons prefix">lock</i>
+                    <div class="col s2"></div>
+                    <i class="mdi-action-lock-outline prefix"></i>
+                    <input class="form-input" id="password-login" type="password" class="col s10">
+                    <label for="password-login">Password</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12 m12 l12  login-text">
+                    <input type="checkbox" id="remember-me"/>
+                    <label for="remember-me">Remember me</label>
+                </div>
+            </div>
+            <div class="col s3"></div>
+            <div class="row">
+                <div class="col s3"></div>
+                <div class="input-field col s12">
+                    <div class="col s4"></div>
+                    <button type="button" class="btn waves-effect waves-light col s4" id="loginBtn">Login</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s6 m6 l6">
+                    <p class="margin medium-small"><a href="register.html" style="color: deepskyblue;">Register Now!</a></p>
+                </div>
+                <div class="input-field col s6 m6 l6">
+                    <p class="margin right-align medium-small"><a href="forgot-password.html" style="color: deepskyblue;">Forgot password?</a></p>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+</body>
+<script src="https://code.jquery.com/jquery-3.1.0.min.js"
+        integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="
+        crossorigin="anonymous"></script>
+<script type="text/javascript" src="/contorAPI/js/materialize.min.js"></script>
+<script src="/contorAPI/js/input.js"></script>
+<script src="/contorAPI/js/bootstrap.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#email-login').val("");
+        $('#password-login').val("");
+    });
+</script>
+</html>

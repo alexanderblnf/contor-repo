@@ -1,0 +1,119 @@
+.centerDiv {
+    width: 60%;
+    height: 40%;
+
+    position: absolute;
+    top:0;
+    bottom: 0;
+    left: 20%;
+    right: 0;
+
+    margin: auto;
+}
+.caret {
+    border-color: transparent !important;
+}
+
+.header
+{
+    position: fixed;
+    top:0;
+    height: 10%;
+    height: 10%;
+    width: 100%;
+}
+#menuId {
+    color: #FFFFFF;
+}
+
+#menuId:hover {
+    color: #191b6b;
+}
+
+#menuParagraph {
+    color: #e8e8e8;
+    margin-left: 1%;
+}
+
+.parallax-index {
+    /* The image used */
+
+    /* Set a specific height */
+    margin-top: 5px;
+    min-height: 350px;
+
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.parallax-content {
+    height:100%;
+    background-image: url('/contorAPI/img/blue-bg.png');
+    font-size:16px;
+    text-align: center;
+    margin-bottom: -5px;
+    color: whitesmoke;
+}
+
+a {
+    color: whitesmoke;
+}
+
+.home {
+    margin-left:auto;
+    margin-right:5px;
+    color: whitesmoke;
+    cursor: pointer;
+}
+
+.home:hover {
+    color: #191b6b;
+}
+
+.loginText{
+    font-family: 'Roboto Slab';
+    font-weight: 700;
+    color: slategray;
+    font-size: 1.5em;
+}
+
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px white inset !important;
+}
+
+.logoutBtn {
+    cursor: pointer;
+}
+
+#logoutSpan {
+    position: absolute;
+    right: 1%;
+    margin-top: 2%;
+}
+
+.dropdownStyle {
+    color: ghostwhite !important;
+}
+
+.dropdownStyle:hover {
+    color: #191b6b !important;
+}
+
+.circle{
+    margin-left: auto;
+    margin-right: auto;
+    height: 50% !important;
+    width: 50% !important;
+}
+
+.deleteEntry {
+    cursor: pointer;
+    color: deepskyblue;
+}
+
+.deleteEntry:hover {
+   color: red;
+}

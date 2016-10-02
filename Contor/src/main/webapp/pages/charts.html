@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="/contorAPI/css/materialize.css" media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="/contorAPI/css/styles.css" media="screen,projection"/>
+</head>
+<body>
+<a class="waves-effect waves-light btn modal-trigger" href="#estimateValue" id="estimateBtn">Get Estimation for next month</a>
+
+<div id="estimateValue" class="modal">
+    <div class="modal-content">
+        <h4>Estimare</h4>
+        <table id="tableId" class="highlight">
+            <thead>
+            <tr>
+                <th data-field="room">Room</th>
+                <th data-field="cold">Cold</th>
+                <th data-field="warm">Warm</th>
+            </tr>
+            </thead>
+            <tbody id="tableBody">
+            </tbody>
+        </table>
+    </div>
+</div>
+<div id="Estimation">
+
+</div>
+<div style="width:800px; height:600px;">
+    <canvas id="buyers"></canvas>
+</div>
+</body>
+<script type="text/javascript" src="/contorAPI/js/Chart.min.js"></script>
+<script type="text/javascript" src="/contorAPI/js/input.js"></script>
+<script>
+    $(document).ready(function(){
+        $('.modal-trigger').leanModal();
+    });
+</script>
+<script>
+    var bathColdYearData = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    var bathWarmYearData = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    var wcColdYearData = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    var wcWarmYearData = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    $(document).ready(function () {
+        for (var i = 1; i <= 12; i++) {
+            var url = "http://localhost:8080/contorAPI/service/contor/monthlyChart/" + i + "/2016";
+            $.ajax({
+                url: url,
+                jsonp: "callback",
+                dataType: "jsonp",
+                async: false,
+                success: function (response) {
+                    if (response[0]['cold'] > 0 && response[0]['warm'] > 0) {
+                        bathColdYearData[i - 1] = response[0]['cold'];
+                        bathWarmYearData[i - 1] = response[0]['warm'];
+                    }
+                    if (response[1]['cold'] > 0 && response[1]['warm'] > 0) {
+                        wcColdYearData[i - 1] = response[1]['cold'];
+                        wcWarmYearData[i - 1] = response[1]['warm'];
+                    }
+                }
+            });
+        }
+
+        var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+        var bathWarmDataSet =
+        {
+            label: "Bath Warm",
+            backgroundColor: "rgba(0,255,192,0.4)",
+            fillColor: 'rgba(0,0,0,0)',
+            strokeColor: 'rgba(220,180,0,1)',
+            pointColor: 'rgba(220,180,0,1)',
+            pointStrokeColor: "#9DB86D",
+            data: bathWarmYearData
+        };
+
+        var bathColdDataSet =
+        {
+            label: "Bath cold",
+            backgroundColor: "rgba(75,192,192,0.4)",
+            fillColor: 'rgba(0,0,0,0)',
+            strokeColor: 'rgba(151,187,205,1)',
+            pointColor: 'rgba(151,187,205,1)',
+            pointStrokeColor: "#9DB86D",
+            data: bathColdYearData
+        };
+
+        var wcWarmDataSet =
+        {
+            label: "WC Warm",
+            backgroundColor: "rgba(0,0,192,0.4)",
+            fillColor: 'rgba(0,0,0,0)',
+            strokeColor: 'rgba(220,180,0,1)',
+            pointColor: 'rgba(220,180,0,1)',
+            pointStrokeColor: "#9DB86D",
+            data: wcWarmYearData
+        };
+
+        var wcColdDataSet =
+        {
+            label: "WC cold",
+            backgroundColor: "rgba(0,140,192,0.4)",
+            fillColor: 'rgba(0,0,0,0)',
+            strokeColor: 'rgba(151,187,205,1)',
+            pointColor: 'rgba(151,187,205,1)',
+            pointStrokeColor: "#9DB86D",
+            data: wcColdYearData
+        };
+
+        var contorData = {
+            labels: months,
+            datasets: [bathWarmDataSet, bathColdDataSet, wcWarmDataSet, wcColdDataSet]
+        };
+
+        var buyers = document.getElementById('buyers').getContext("2d");
+        var coldChart = new Chart(buyers, {
+            type: 'line',
+            data: contorData,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false
+            }
+        });
+
+    });
+
+    $(document).on('click', '#estimateBtn', function () {
+        var url = 'http://localhost:8080/contorAPI/service/contor/getEstimate';
+
+        $.ajax({
+            type: "GET",
+            url: url,
+        }).then(function (response) {
+
+            table = document.querySelector('#tableBody');
+            $('#tableBody').empty();
+
+            response.forEach(function (value) {
+               var td, tr;
+
+                tr = document.createElement('tr');
+
+                td = document.createElement('td');
+                td.textContent = value.room;
+
+                tr.appendChild(td);
+
+                td = document.createElement('td');
+                td.textContent = value.cold;
+
+                tr.appendChild(td);
+
+                td = document.createElement('td');
+                td.textContent = value.warm;
+
+                tr.appendChild(td);
+
+                table.appendChild(tr);
+
+            });
+        });
+    })
+</script>
+
+</html>

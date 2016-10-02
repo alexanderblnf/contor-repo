@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="/contorAPI/css/materialize.css" media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="/contorAPI/css/styles.css" media="screen,projection"/>
+</head>
+<body>
+    <table id="tableId" class="highlight">
+        <thead>
+        <tr>
+            <th data-field="id">ID</th>
+            <th data-field="room">Room</th>
+            <th data-field="cold">Cold</th>
+            <th data-field="warm">Warm</th>
+            <th data-field="time">Times</th>
+            <th data-field="delete">Delete</th>
+        </tr>
+        </thead>
+
+        <tbody id="tableBody">
+        </tbody>
+    </table>
+
+</body>
+<script>
+    function printDB() {
+        var url = "http://localhost:8080/contorAPI/service/contor/printJSON";
+        $.ajax({
+            url: url,
+            jsonp: "callback",
+            dataType: "jsonp",
+        }).then(function (response) {
+            var table;
+
+            table = document.querySelector('#tableBody');
+            $('#tableBody').empty();
+
+            var i = 0;
+
+            response.forEach(function (value) {
+                var td, tr;
+                i++;
+
+                tr = document.createElement('tr');
+
+                td = document.createElement('td');
+                td.textContent = value.id;
+
+                tr.appendChild(td);
+
+                td = document.createElement('td');
+                td.textContent = value.room;
+
+                tr.appendChild(td);
+
+                td = document.createElement('td');
+                td.textContent = value.cold;
+
+                tr.appendChild(td);
+
+                td = document.createElement('td');
+                td.textContent = value.warm;
+
+                tr.appendChild(td);
+
+                td = document.createElement('td');
+                td.textContent = value.time;
+
+                tr.appendChild(td);
+
+                td = document.createElement('td');
+
+                var iconId = "deleteId" + value.id;
+
+                td.innerHTML = '<i class="material-icons prefix deleteEntry" id="' + iconId + '">delete</i>';
+
+                tr.appendChild(td);
+
+                table.appendChild(tr);
+            });
+
+            $('#tableId').addClass('highlight responsive-table');
+        });
+    }
+</script>
+<script>
+    $(document).ready(function () {
+        printDB();
+    });
+
+    $(document).on('click', '.deleteEntry', function () {
+        var id = parseInt(this.id.substring(8));
+        console.log(id);
+        var url = 'http://localhost:8080/contorAPI/service/contor/remove/' + id;
+
+        $.ajax({
+            type: "GET",
+            url: url,
+        }).then(function (response) {
+            Materialize.toast(response, 2000, 'rounded');
+            printDB();
+        });
+    });
+</script>
+</html>

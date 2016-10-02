@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Database test</title>
+    <!--<link rel="stylesheet" href="css/bootstrap.min.css"> -->
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="css/materialize.css" media="screen,projection"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link type="text/css" rel="stylesheet" href="css/styles.css"/>
+    <link type="text/css" rel="stylesheet" href="css/loading-screen.css"/>
+</head>
+<body>
+<div align="center" class="cssload-fond" id="loadScreen" style="display: block;">
+    <div class="cssload-container-general" id="loadContainer" style="display: block;">
+        <div class="cssload-internal"><div class="cssload-ballcolor cssload-ball_1"> </div></div>
+        <div class="cssload-internal"><div class="cssload-ballcolor cssload-ball_2"> </div></div>
+        <div class="cssload-internal"><div class="cssload-ballcolor cssload-ball_3"> </div></div>
+        <div class="cssload-internal"><div class="cssload-ballcolor cssload-ball_4"> </div></div>
+    </div>
+</div>
+<div class="centerDiv" style="display:none;">
+
+</div>
+<ul id="slide-out" class="side-nav">
+    <li>
+        <div class="userView">
+            <img class="background" src="img/blue-bg.png">
+            <img class="circle" src="/contorAPI/img/contor_logo.png">
+            <ul class="collapsible collapsible-accordion" style="margin-bottom: 9%;">
+                <li>
+                    <a class="collapsible-header dropdownStyle" id="usernameLink"></a>
+                    <div class="collapsible-body" style="background-color : transparent;">
+                        <ul>
+                            <li><a class="dropdownStyle" href="#!"><i class="material-icons dropdownStyle">face</i>My Profile</a></li>
+                            <li><a class="dropdownStyle logoutBtn"><i class="material-icons dropdownStyle logoutBtn">power_settings_new</i>Logout</a></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </li>
+    <li><a class="addBtn"><i class="material-icons addBtn">add</i>Add Entry</a></li>
+    <!--<li><a class="removeBtn"><i class="material-icons removeBtn">delete</i>Delete Entry</a></li>-->
+    <li><a class="printBtn"><i class="material-icons printBtn">print</i>My Entries</a></li>
+    <li><a class="chartsBtn"><i class="material-icons chartsBtn">show_chart</i>Show statistics</a></li>
+
+</ul>
+<div class="header z-depth-1" style="background-image: url('img/blue-bg.png'); display: flex; align-items: center;">
+
+    <a href="#" data-activates="slide-out" class="button-collapse menuBtn"><i id="menuId" class="medium material-icons menuBtn">menu</i></a>
+    <p id="menuParagraph" class="flow-text">Menu</p>
+    <div class="home">
+        <i class="medium material-icons home">home</i></a>
+    </div>
+
+</div>
+<div class="parallax-index z-depth-1" style="background-image: url('img/parallax1.jpg');"></div>
+
+<div class="parallax-content z-depth-1">
+    <br>
+    <h4 style="color:whitesmoke;">Contor API</h4>
+    <br><br>
+    This is an app built for water counters, to generate statistics for water usage.
+    <br>
+    You can find the menu in the upper left corner, with relevant functions.
+    <br>
+    This is a work in progress
+    <br><br><br>
+    <a href="https://www.facebook.com/alexandru.balan.79">About me</a>
+    <br><br>
+</div>
+<div class="parallax-index" style="background-image: url('img/parallax1.jpg');"></div>
+<footer class="page-footer" style="background-image: url('img/blue-bg.png');">
+    <div class="container">
+        <div class="row">
+            <div class="col l6 s12">
+                <h5 class="white-text">Contor API</h5>
+                <p class="grey-text text-lighten-4">This is a personal project. All rights reserved</p>
+            </div>
+            <div class="col l4 offset-l2 s12">
+                <h5 class="white-text">Links</h5>
+                <ul>
+                    <li><a class="grey-text text-lighten-3" href="https://www.facebook.com/alexandru.balan.79">About me</a></li>
+                    <li><a class="grey-text text-lighten-3" href="http://materializecss.com/">Materialize</a></li>
+                    <li><a class="grey-text text-lighten-3" href="https://design.google.com/icons/">Material icons</a></li>
+                    <li><a class="grey-text text-lighten-3" href="http://getbootstrap.com/">Bootstrap</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="footer-copyright">
+        <div class="container">
+            © 2016 Alexandru Balan
+        </div>
+    </div>
+</footer>
+</body>
+<script src="https://code.jquery.com/jquery-3.1.0.min.js"
+        integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="
+        crossorigin="anonymous"></script>
+
+<script>
+    $(document).ready(function () {
+        $('#loadContainer').css('display', 'block');
+        $('#loadScreen').css('display', 'block');
+    });
+    $(window).on('load', function () {
+        setTimeout(function() {
+            $('#loadContainer').css('display', 'none');
+            $('#loadScreen').css('display', 'none');
+        }, 500);
+
+    });
+</script>
+
+<script type="text/javascript" src="js/materialize.min.js"></script>
+<script src="js/input.js"></script>
+<script src="js/bootstrap.min.js"></script>
+
+<script>
+    var url = 'http://localhost:8080/contorAPI/service/user/islogged';
+
+    $.ajax({
+        type: "GET",
+        contentType: "application/json; charset=UTF-8",
+        url: url,
+        dataType: "json",
+        error: function() {
+            window.location.href = '/contorAPI/pages/login.html';
+        },
+        success: function (response) {
+            var fullName = response.firstName + ' ' + response.lastName + '<i class="material-icons">arrow_drop_down</i>';
+            $('#usernameLink').append(fullName);
+        }
+    });
+</script>
+
+<script>
+    $(document).ready(function () {
+        $('.button-collapse').sideNav({
+            closeOnClick: true
+        });
+        $('.collapsible').collapsible();
+    });
+
+    $(".logoutBtn").on("click", function () {
+        var url = 'http://localhost:8080/contorAPI/service/user/logout';
+
+        $.ajax({
+            type: "GET",
+            contentType: "application/json; charset=UTF-8",
+            url: url,
+            dataType: "json"
+        }).then(function (response) {
+            if(response == true) {
+                window.location.href = '/contorAPI/pages/login.html';
+            }
+        });
+    });
+</script>
+</html>
